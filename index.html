@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* ===== RESET Y ESTILOS GENERALES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      overflow-x: hidden;
+      background-color: black;
+    }
+
+    body {
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    @font-face {
+      font-family: "SpotifyMixBold";
+      src: url("SpotifyMix-Bold.ttf");
+    }
+
+    /* ===== PANTALLA DE CARGA ===== */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      z-index: 99999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 1s ease;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ===== BANNER SUPERIOR FIJO ===== */
+    .top-banner {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background-color: black;
+      border-bottom: 2px solid #2a2a2a;
+      padding: 15px 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .banner-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .artist-name-btn {
+      background: none;
+      border: 2px solid #2a2a2a;
+      color: white;
+      font-family: "SpotifyMixBold", sans-serif;
+      font-size: 24px;
+      padding: 10px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .artist-name-btn:hover {
+      background: #2a2a2a;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-imagen {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(to top, black, transparent);
+      pointer-events: none;
+    }
+
+    .hero-texto {
+      position: absolute;
+      bottom: 15%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .hero-texto h1 {
+      font-size: 120px;
+      font-family: "SpotifyMixBold", sans-serif;
+      margin: 0;
+      text-shadow: 2px 2px 10px black;
+      letter-spacing: 4px;
+    }
+
+    .hero-texto p {
+      font-size: 24px;
+      margin: 10px 0 0;
+      opacity: 0.9;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+
+    /* ===== BOTONES SOCIALES ===== */
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 60px auto;
+      flex-wrap: wrap;
+      padding: 0 20px;
+    }
+
+    .social-btn {
+      background: #1a1a1a;
+      border: 2px solid #2a2a2a;
+      border-radius: 50px;
+      padding: 15px 25px; /* Ajustado para mejor ajuste del icono */
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-btn:hover {
+      transform: scale(1.1);
+      background: #2a2a2a;
+    }
+
+    .social-btn a {
+      color: white;
+      font-size: 0; /* Oculta cualquier texto residual */
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0; /* Asegura que no haya espacio para texto */
+    }
+
+    /* Estilos para los SVGs de los logos */
+    .social-icon {
+      width: 28px;
+      height: 28px;
+      display: block;
+      fill: white; /* Los SVGs usan fill para el color */
+    }
+
+    /* ===== SECCIÓN "EL ARTISTA" ===== */
+    .artista-section {
+      max-width: 800px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+
+    .artista-section h2 {
+      font-size: 80px;
+      font-family: "SpotifyMixBold", sans-serif;
+      margin: 0;
+      line-height: 1;
+      color: white;
+    }
+
+    .linea-corta {
+      width: 60px;
+      height: 4px;
+      background: #2a2a2a;
+      margin: 20px 0 30px;
+    }
+
+    .artista-section p {
+      font-size: 20px;
+      line-height: 1.6;
+      color: #ccc;
+      margin-bottom: 50px;
+    }
+
+    .linea-separadora {
+      width: 100%;
+      height: 2px;
+      background: #1a1a1a;
+      margin: 60px 0;
+    }
+
+    /* ===== SECCIÓN CANCIONES ===== */
+    .canciones-titulo {
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    .canciones-titulo h3 {
+      font-size: 36px;
+      font-family: "SpotifyMixBold", sans-serif;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .linea-titulo {
+      width: 120px;
+      height: 3px;
+      background: #2a2a2a;
+      margin: 0 auto;
+    }
+
+    /* ===== CONTENEDOR DE CANCIONES (cuadrícula + mensaje vacío) ===== */
+    .canciones-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      width: 100%;
+    }
+
+    /* Mensaje cuando no hay canciones */
+    .empty-message {
+      text-align: center;
+      padding: 60px 20px;
+      background: #131313;
+      border-radius: 15px;
+      border: 2px dashed #2a2a2a;
+      color: #888;
+      font-size: 24px;
+      font-family: "SpotifyMixBold", sans-serif;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .empty-message span {
+      display: block;
+      font-size: 18px;
+      margin-top: 15px;
+      color: #666;
+      font-family: Arial, sans-serif;
+      letter-spacing: normal;
+    }
+
+    .empty-message.hidden {
+      display: none;
+    }
+
+    /* Cuadrícula de canciones (inicialmente oculta si está vacía) */
+    .canciones-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      width: 100%;
+    }
+
+    /* Mostrar grid cuando tenga contenido */
+    .canciones-grid:not(:empty) {
+      display: grid;
+    }
+
+    /* Ocultar grid si está vacío */
+    .canciones-grid:empty {
+      display: none;
+    }
+
+    .tarjeta-cuadrada {
+      background: #131313;
+      border-radius: 15px;
+      border: 1px solid #2a2a2a;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: transform 0.3s;
+    }
+
+    .tarjeta-cuadrada:hover {
+      transform: translateY(-5px);
+      border-color: #444;
+    }
+
+    /* NUEVO: Contenedor para la imagen con degradado */
+    .imagen-con-degradado {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+
+    .imagen-con-degradado img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* NUEVO: Capa de degradado en la parte inferior de la imagen */
+    .imagen-con-degradado::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%; /* Ajusta la altura del degradado */
+      background: linear-gradient(to top, rgba(19, 19, 19, 1), transparent); /* #131313 es el color de fondo de la tarjeta */
+      pointer-events: none; /* Permite hacer clic a través del degradado */
+      z-index: 1;
+    }
+
+    .cancion-info-cuadrada {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      position: relative; /* Asegura que el contenido esté sobre el degradado si es necesario, pero el degradado está en la imagen */
+      z-index: 2;
+    }
+
+    .cancion-info-cuadrada h3 {
+      font-size: 18px;
+      margin: 0 0 8px;
+      color: white;
+      text-align: center;
+    }
+
+    .cancion-info-cuadrada p {
+      margin: 0 0 15px;
+      color: #aaa;
+      line-height: 1.4;
+      font-size: 13px;
+      text-align: center;
+      flex: 1;
+    }
+
+    .cancion-info-cuadrada a {
+      background: #2a2a2a;
+      color: white;
+      padding: 10px 0;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      border: 1px solid #444;
+      font-size: 14px;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    .cancion-info-cuadrada a:hover {
+      background: #3a3a3a;
+    }
+
+    /* ===== PANEL DE ADMIN (sin cambios) ===== */
+    #admin-panel {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #222;
+      padding: 30px;
+      border-radius: 20px;
+      z-index: 10000;
+      border: 3px solid #2a2a2a;
+      width: min(400px, 90%);
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    }
+
+    #admin-panel h3 {
+      color: white;
+      margin-top: 0;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .modo-selector {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .modo-btn {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #2a2a2a;
+      background: transparent;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .modo-btn.active {
+      background: #2a2a2a;
+      color: white;
+    }
+
+    #admin-panel input,
+    #admin-panel textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #2a2a2a;
+      background: #333;
+      color: white;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    #admin-panel input[type="file"] {
+      padding: 8px;
+      background: #333;
+      border: 1px dashed #2a2a2a;
+    }
+
+    .admin-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .admin-buttons button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-guardar {
+      background: #2a2a2a;
+      color: white;
+    }
+
+    .btn-cerrar {
+      background: #444;
+      color: white;
+    }
+
+    #lista-editar {
+      max-height: 300px;
+      overflow-y: auto;
+      margin: 15px 0;
+      padding: 10px;
+      background: #1a1a1a;
+      border-radius: 8px;
+    }
+
+    .item-editable {
+      background: #333;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border-left: 4px solid #2a2a2a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .item-editable button {
+      background: #444;
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 5px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    .item-editable button.editar-btn {
+      background: #2a2a2a;
+    }
+
+    .item-editable button.eliminar-btn {
+      background: #662222;
+    }
+
+    .checkbox-group {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #admin-login {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10001;
+      background: #222;
+      padding: 20px;
+      border-radius: 15px;
+      border: 2px solid #2a2a2a;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      width: min(250px, 90%);
+    }
+
+    #admin-login input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #2a2a2a;
+      background: #333;
+      color: white;
+    }
+
+    #admin-login button {
+      background: #2a2a2a;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .cerrar-login {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: none;
+      border: none;
+      color: #666;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .antiguo {
+      display: none;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 850px) {
+      .hero-texto h1 {
+        font-size: 60px;
+      }
+
+      .hero-texto p {
+        font-size: 18px;
+      }
+
+      .social-btn {
+        padding: 12px 20px;
+      }
+
+      .social-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .artista-section h2 {
+        font-size: 50px;
+      }
+
+      .canciones-titulo h3 {
+        font-size: 28px;
+      }
+
+      .linea-titulo {
+        width: 100px;
+      }
+
+      .canciones-wrapper {
+        padding: 20px 15px;
+      }
+
+      .canciones-grid {
+        gap: 15px;
+      }
+
+      .cancion-info-cuadrada {
+        padding: 12px;
+      }
+
+      .cancion-info-cuadrada h3 {
+        font-size: 16px;
+      }
+
+      .cancion-info-cuadrada p {
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
+
+      .cancion-info-cuadrada a {
+        font-size: 12px;
+        padding: 8px 0;
+      }
+
+      .artist-name-btn {
+        font-size: 18px;
+        padding: 8px 20px;
+      }
+
+      .empty-message {
+        font-size: 20px;
+        padding: 40px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .canciones-grid {
+        grid-template-columns: 1fr; /* En móvil muy pequeño, 1 columna */
+        gap: 15px;
+      }
+
+      .cancion-info-cuadrada h3 {
+        font-size: 18px;
+      }
+
+      .cancion-info-cuadrada p {
+        font-size: 13px;
+      }
+
+      .empty-message {
+        font-size: 18px;
+      }
+    }
+  </style>
+  <title>Ja morat</title>
+</head>
+<body>
+  <!-- PANTALLA DE CARGA -->
+  <div id="loading-screen">
+    <div style="text-align: center; position: relative">
+      <img
+        src="https://cdn.dribbble.com/userupload/22473344/file/original-3738cd13db19cc93b2f7f6f6fe7134f4.gif"
+        alt="Cargando..."
+        style="
+          width: 50vw;
+          height: auto;
+          max-width: 500px;
+          display: block;
+          margin: 0 auto;
+        "
+      />
+      <h2
+        style="
+          color: white;
+          font-family: &quot;Georgia&quot;, serif;
+          font-size: 16px;
+          letter-spacing: 3px;
+          margin-top: -30px; /* Valor negativo lo sube */
+          position: relative;
+          z-index: 2;
+        "
+      >
+        Ja morat
+      </h2>
+    </div>
+  </div>
+
+  <!-- BANNER SUPERIOR FIJO -->
+  <div class="top-banner">
+    <div class="banner-content">
+      <button class="artist-name-btn" onclick="mostrarPanelAdmin()">
+        Ja morat
+      </button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="IMG.jpg" alt="Artista" class="hero-imagen" />
+    <div class="hero-texto">
+      <h1>Ja morat</h1>
+      <p>Experimentando con el alma, fusionando géneros</p>
+    </div>
+  </div>
+
+  <!-- Botones sociales (ACTUALIZADOS: solo Telegram e Instagram con logos) -->
+  <div class="social-buttons">
+    <!-- Botón de Telegram con logo y enlace actualizado -->
+    <div class="social-btn">
+      <a href="https://t.me/Morat10" target="_blank">
+        <!-- Logo de Telegram (SVG) -->
+        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+          <path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4.1 20.8 2.7 17.2 19.5z"/>
+        </svg>
+      </a>
+    </div>
+    <!-- Botón de Instagram con logo y enlace actualizado -->
+    <div class="social-btn">
+      <a href="https://www.instagram.com/ja_morat10?igsh=MWowaGo0emRoZmpoMg==" target="_blank">
+        <!-- Logo de Instagram (SVG) -->
+        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+          <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+        </svg>
+      </a>
+    </div>
+    <!-- Botón de YouTube ELIMINADO -->
+  </div>
+
+  <!-- Sección "El artista" -->
+  <div class="artista-section" data-aos="fade-up">
+    <h2>El artista</h2>
+    <div class="linea-corta"></div>
+    <p>
+      Originario de Ciego de Ávila, Jairon Emilio Roig Cañizares (conocido profesionalmente como ja morat) inició su trayectoria el 14 de octubre de 2025. Su propuesta artística trasciende las etiquetas convencionales, fusionando  RnB, Trova, Trap, Reguetón en un viaje emocional de la superación y el empoderamiento se convierte en ritmo
+    </p>
+  </div>
+
+  <div class="linea-separadora" data-aos="fade"></div>
+
+  <!-- Título de canciones -->
+  <div class="canciones-titulo" data-aos="fade-up">
+    <h3>CANCIONES</h3>
+    <div class="linea-titulo"></div>
+  </div>
+
+  <!-- Contenedor de canciones: cuadrícula + mensaje vacío -->
+  <div class="canciones-wrapper">
+    <!-- Mensaje para cuando no hay canciones -->
+    <div id="empty-message" class="empty-message">
+      🎵 Aún no hay canciones<br>
+      <span>Agrega tu primera canción desde el panel de administración</span>
+    </div>
+    
+    <!-- Tarjetas de canciones en cuadrícula -->
+    <div class="canciones-grid" id="canciones-grid"></div>
+  </div>
+
+  <!-- PANEL DE ADMINISTRACIÓN -->
+  <div id="admin-panel">
+    <h3>⚙️ Administrar Canciones</h3>
+
+    <div class="modo-selector">
+      <button class="modo-btn active" onclick="cambiarModo('agregar')">
+        ➕ Agregar
+      </button>
+      <button class="modo-btn" onclick="cambiarModo('editar')">
+        ✏️ Editar/Eliminar
+      </button>
+    </div>
+
+    <!-- FORMULARIO AGREGAR -->
+    <div id="agregar-form">
+      <label>Título:</label>
+      <input type="text" id="nuevo-titulo" placeholder="Ej: En Visto" />
+
+      <label>Descripción:</label>
+      <textarea
+        id="nuevo-desc"
+        rows="2"
+        placeholder="Describe la canción..."
+      ></textarea>
+
+      <label>Imagen:</label>
+      <input type="file" id="nuevo-imagen" accept="image/*" />
+
+      <div class="checkbox-group">
+        <input
+          type="checkbox"
+          id="agregar-boton"
+          onchange="toggleBotonConfig('agregar')"
+        />
+        <label>Agregar botón personalizado</label>
+      </div>
+
+      <div id="boton-config-agregar" style="display: none">
+        <label>Texto del botón:</label>
+        <input
+          type="text"
+          id="nuevo-boton-texto"
+          placeholder="Ej: Escuchar en YouTube"
+        />
+        <label>Enlace del botón:</label>
+        <input type="url" id="nuevo-boton-enlace" placeholder="https://..." />
+      </div>
+
+      <div class="admin-buttons">
+        <button class="btn-guardar" onclick="guardarCancion()">
+          💾 Guardar
+        </button>
+        <button class="btn-cerrar" onclick="cerrarAdmin()">✖ Cerrar</button>
+      </div>
+    </div>
+
+    <!-- FORMULARIO EDITAR -->
+    <div id="editar-form" style="display: none">
+      <label>Selecciona una canción:</label>
+      <div id="lista-editar"></div>
+
+      <div id="editor-seleccionado" style="display: none">
+        <hr style="border-color: #2a2a2a; margin: 20px 0" />
+
+        <label>Título:</label>
+        <input type="text" id="editar-titulo" />
+
+        <label>Descripción:</label>
+        <textarea id="editar-desc" rows="2"></textarea>
+
+        <label>Nueva imagen (opcional):</label>
+        <input type="file" id="editar-imagen" accept="image/*" />
+
+        <div class="checkbox-group">
+          <input
+            type="checkbox"
+            id="editar-boton"
+            onchange="toggleBotonConfig('editar')"
+          />
+          <label>Agregar/editar botón</label>
+        </div>
+
+        <div id="boton-config-editar" style="display: none">
+          <label>Texto del botón:</label>
+          <input type="text" id="editar-boton-texto" />
+          <label>Enlace del botón:</label>
+          <input type="url" id="editar-boton-enlace" />
+        </div>
+
+        <div class="admin-buttons">
+          <button class="btn-guardar" onclick="guardarEdicion()">
+            💾 Guardar
+          </button>
+          <button class="btn-cerrar" onclick="cancelarEdicion()">
+            ✖ Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="admin-login">
+    <button class="cerrar-login" onclick="cerrarLogin()">✖</button>
+    <h3 style="color: white; margin-top: 0; text-align: center">
+      🔐 Acceso Admin
+    </h3>
+    <input type="password" id="admin-pass" placeholder="Contraseña" />
+    <button onclick="checkPass()">Entrar</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    const ADMIN_PASS = "ja_morat1978";
+    let editandoId = null;
+
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        document.getElementById("loading-screen").style.opacity = "0";
+        setTimeout(function () {
+          document.getElementById("loading-screen").style.display = "none";
+        }, 1000);
+      }, 500);
+
+      cargarCanciones();
+
+      // INICIALIZACIÓN CORREGIDA - ANIMACIÓN SOLO DE ENTRADA
+      AOS.init({
+        duration: 1000,      // Duración de la animación
+        once: true,          // <-- CLAVE: Solo anima UNA VEZ (solo al entrar)
+        offset: 100,         // Distancia para activar
+        mirror: false,       // <-- IMPORTANTE: No animar al hacer scroll up
+        easing: 'ease-out',  // Suavizado
+        anchorPlacement: 'top-bottom', // Cuándo se activa
+      });
+    });
+
+    function mostrarLogin() {
+      document.getElementById("admin-login").style.display = "flex";
+    }
+
+    function cerrarLogin() {
+      document.getElementById("admin-login").style.display = "none";
+    }
+
+    function checkPass() {
+      const pass = document.getElementById("admin-pass").value;
+      if (pass === ADMIN_PASS) {
+        localStorage.setItem("adminAuth", "true");
+        document.getElementById("admin-login").style.display = "none";
+        document.getElementById("admin-panel").style.display = "block";
+        cargarListaEdicion();
+      } else {
+        alert("❌ Contraseña incorrecta");
+      }
+    }
+
+    function mostrarPanelAdmin() {
+      if (localStorage.getItem("adminAuth") === "true") {
+        document.getElementById("admin-panel").style.display = "block";
+        cargarListaEdicion();
+      } else {
+        mostrarLogin();
+      }
+    }
+
+    function cambiarModo(modo) {
+      document
+        .querySelectorAll(".modo-btn")
+        .forEach((btn) => btn.classList.remove("active"));
+
+      if (modo === "agregar") {
+        document
+          .querySelector(".modo-btn:first-child")
+          .classList.add("active");
+        document.getElementById("agregar-form").style.display = "block";
+        document.getElementById("editar-form").style.display = "none";
+      } else {
+        document
+          .querySelector(".modo-btn:last-child")
+          .classList.add("active");
+        document.getElementById("agregar-form").style.display = "none";
+        document.getElementById("editar-form").style.display = "block";
+        cargarListaEdicion();
+      }
+    }
+
+    function toggleBotonConfig(modo) {
+      const checkbox = document.getElementById(
+        modo === "agregar" ? "agregar-boton" : "editar-boton",
+      );
+      const config = document.getElementById(`boton-config-${modo}`);
+      config.style.display = checkbox.checked ? "block" : "none";
+    }
+
+    function cerrarAdmin() {
+      document.getElementById("admin-panel").style.display = "none";
+      editandoId = null;
+    }
+
+    function guardarCancion() {
+      const titulo = document.getElementById("nuevo-titulo").value;
+      const desc = document.getElementById("nuevo-desc").value;
+      const imagenInput = document.getElementById("nuevo-imagen");
+      const tieneBoton = document.getElementById("agregar-boton").checked;
+
+      if (!titulo || !desc || !imagenInput.files[0]) {
+        alert("❌ Completa todos los campos");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const nuevaTarjeta = {
+          id: Date.now(),
+          titulo: titulo,
+          desc: desc,
+          imagen: e.target.result,
+          boton: tieneBoton
+            ? {
+                texto:
+                  document.getElementById("nuevo-boton-texto").value ||
+                  "Escuchar",
+                enlace:
+                  document.getElementById("nuevo-boton-enlace").value || "#",
+              }
+            : null,
+        };
+
+        let canciones = JSON.parse(localStorage.getItem("canciones")) || [];
+        canciones.push(nuevaTarjeta);
+        localStorage.setItem("canciones", JSON.stringify(canciones));
+
+        location.reload();
+      };
+
+      reader.readAsDataURL(imagenInput.files[0]);
+    }
+
+    function cargarCanciones() {
+      const container = document.getElementById("canciones-grid");
+      const emptyMessage = document.getElementById("empty-message");
+      container.innerHTML = "";
+
+      let canciones = JSON.parse(localStorage.getItem("canciones"));
+
+      // Eliminamos las canciones predeterminadas
+      if (!canciones) {
+        canciones = []; // Inicializar como array vacío si no existe
+        localStorage.setItem("canciones", JSON.stringify(canciones));
+      }
+
+      if (canciones.length === 0) {
+        // Mostrar mensaje vacío y ocultar grid
+        emptyMessage.classList.remove("hidden");
+      } else {
+        // Ocultar mensaje vacío
+        emptyMessage.classList.add("hidden");
+        
+        // Ordenar y agregar canciones
+        canciones
+          .sort((a, b) => a.id - b.id)
+          .forEach((c) => agregarTarjetaDOM(c));
+      }
+    }
+
+    function agregarTarjetaDOM(c) {
+      const container = document.getElementById("canciones-grid");
+      const tarjeta = document.createElement("div");
+      tarjeta.className = "tarjeta-cuadrada";
+      tarjeta.setAttribute("data-aos", "fade-up");
+
+      let botonHTML = c.boton
+        ? `<a href="${c.boton.enlace}" target="_blank">${c.boton.texto}</a>`
+        : "";
+
+      // MODIFICADO: Envolver la imagen en un contenedor con la clase para el degradado
+      tarjeta.innerHTML = `
+        <div class="imagen-con-degradado"><img src="${c.imagen}" alt="${c.titulo}"></div>
+        <div class="cancion-info-cuadrada">
+          <h3>${c.titulo}</h3>
+          <p>${c.desc}</p>
+          ${botonHTML}
+        </div>
+      `;
+      container.appendChild(tarjeta);
+      AOS.refresh();
+    }
+
+    function cargarListaEdicion() {
+      const lista = document.getElementById("lista-editar");
+      const canciones = JSON.parse(localStorage.getItem("canciones")) || [];
+
+      lista.innerHTML = canciones.length
+        ? ""
+        : '<p style="color:#666; text-align:center;">No hay canciones</p>';
+
+      canciones
+        .sort((a, b) => a.id - b.id)
+        .forEach((c) => {
+          const item = document.createElement("div");
+          item.className = "item-editable";
+          item.innerHTML = `
+          <div><strong style="color:white;">${c.titulo}</strong><br><small style="color:#999;">${c.desc.substring(0, 30)}...</small></div>
+          <div>
+            <button class="editar-btn" onclick="editarCancion(${c.id})">✏️</button>
+            <button class="eliminar-btn" onclick="eliminarCancion(${c.id})">🗑️</button>
+          </div>
+        `;
+          lista.appendChild(item);
+        });
+    }
+
+    function editarCancion(id) {
+      const c = JSON.parse(localStorage.getItem("canciones")).find(
+        (c) => c.id === id,
+      );
+      if (!c) return;
+
+      editandoId = id;
+      document.getElementById("editor-seleccionado").style.display = "block";
+      document.getElementById("editar-titulo").value = c.titulo;
+      document.getElementById("editar-desc").value = c.desc;
+      document.getElementById("editar-boton").checked = !!c.boton;
+      document.getElementById("boton-config-editar").style.display = c.boton
+        ? "block"
+        : "none";
+      if (c.boton) {
+        document.getElementById("editar-boton-texto").value = c.boton.texto;
+        document.getElementById("editar-boton-enlace").value = c.boton.enlace;
+      }
+    }
+
+    function guardarEdicion() {
+      if (!editandoId) return;
+
+      let canciones = JSON.parse(localStorage.getItem("canciones"));
+      const index = canciones.findIndex((c) => c.id === editandoId);
+      if (index === -1) return;
+
+      const imgInput = document.getElementById("editar-imagen");
+
+      if (imgInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => actualizar(e.target.result);
+        reader.readAsDataURL(imgInput.files[0]);
+      } else {
+        actualizar(canciones[index].imagen);
+      }
+
+      function actualizar(imagen) {
+        canciones[index] = {
+          ...canciones[index],
+          titulo: document.getElementById("editar-titulo").value,
+          desc: document.getElementById("editar-desc").value,
+          imagen: imagen,
+          boton: document.getElementById("editar-boton").checked
+            ? {
+                texto:
+                  document.getElementById("editar-boton-texto").value ||
+                  "Escuchar",
+                enlace:
+                  document.getElementById("editar-boton-enlace").value || "#",
+              }
+            : null,
+        };
+
+        localStorage.setItem("canciones", JSON.stringify(canciones));
+        location.reload();
+      }
+    }
+
+    function eliminarCancion(id) {
+      if (!confirm("¿Eliminar?")) return;
+      let canciones = JSON.parse(localStorage.getItem("canciones")).filter(
+        (c) => c.id !== id,
+      );
+      localStorage.setItem("canciones", JSON.stringify(canciones));
+      location.reload();
+    }
+
+    function cancelarEdicion() {
+      editandoId = null;
+      document.getElementById("editor-seleccionado").style.display = "none";
+    }
+  </script>
+</body>
+</html>
