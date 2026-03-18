@@ -158,7 +158,7 @@
       background: #1a1a1a;
       border: 2px solid #2a2a2a;
       border-radius: 50px;
-      padding: 15px 25px; /* Ajustado para mejor ajuste del icono */
+      padding: 15px 25px;
       transition: 0.3s;
       display: flex;
       align-items: center;
@@ -172,20 +172,19 @@
 
     .social-btn a {
       color: white;
-      font-size: 0; /* Oculta cualquier texto residual */
+      font-size: 0;
       text-decoration: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      line-height: 0; /* Asegura que no haya espacio para texto */
+      line-height: 0;
     }
 
-    /* Estilos para los SVGs de los logos */
     .social-icon {
       width: 28px;
       height: 28px;
       display: block;
-      fill: white; /* Los SVGs usan fill para el color */
+      fill: white;
     }
 
     /* ===== SECCIÓN "EL ARTISTA" ===== */
@@ -244,7 +243,6 @@
       margin: 0 auto;
     }
 
-    /* ===== CONTENEDOR DE CANCIONES (cuadrícula + mensaje vacío) ===== */
     .canciones-wrapper {
       max-width: 1000px;
       margin: 0 auto;
@@ -252,7 +250,6 @@
       width: 100%;
     }
 
-    /* Mensaje cuando no hay canciones */
     .empty-message {
       text-align: center;
       padding: 60px 20px;
@@ -279,7 +276,6 @@
       display: none;
     }
 
-    /* Cuadrícula de canciones (inicialmente oculta si está vacía) */
     .canciones-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -287,12 +283,10 @@
       width: 100%;
     }
 
-    /* Mostrar grid cuando tenga contenido */
     .canciones-grid:not(:empty) {
       display: grid;
     }
 
-    /* Ocultar grid si está vacío */
     .canciones-grid:empty {
       display: none;
     }
@@ -313,7 +307,6 @@
       border-color: #444;
     }
 
-    /* NUEVO: Contenedor para la imagen con degradado */
     .imagen-con-degradado {
       position: relative;
       width: 100%;
@@ -328,16 +321,15 @@
       display: block;
     }
 
-    /* NUEVO: Capa de degradado en la parte inferior de la imagen */
     .imagen-con-degradado::after {
       content: "";
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 40%; /* Ajusta la altura del degradado */
-      background: linear-gradient(to top, rgba(19, 19, 19, 1), transparent); /* #131313 es el color de fondo de la tarjeta */
-      pointer-events: none; /* Permite hacer clic a través del degradado */
+      height: 40%;
+      background: linear-gradient(to top, rgba(19, 19, 19, 1), transparent);
+      pointer-events: none;
       z-index: 1;
     }
 
@@ -346,7 +338,7 @@
       display: flex;
       flex-direction: column;
       flex: 1;
-      position: relative; /* Asegura que el contenido esté sobre el degradado si es necesario, pero el degradado está en la imagen */
+      position: relative;
       z-index: 2;
     }
 
@@ -385,7 +377,6 @@
       background: #3a3a3a;
     }
 
-    /* ===== PANEL DE ADMIN (sin cambios) ===== */
     #admin-panel {
       display: none;
       position: fixed;
@@ -568,7 +559,6 @@
       display: none;
     }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 850px) {
       .hero-texto h1 {
         font-size: 60px;
@@ -638,7 +628,7 @@
 
     @media (max-width: 480px) {
       .canciones-grid {
-        grid-template-columns: 1fr; /* En móvil muy pequeño, 1 columna */
+        grid-template-columns: 1fr;
         gap: 15px;
       }
 
@@ -678,7 +668,7 @@
           font-family: &quot;Georgia&quot;, serif;
           font-size: 16px;
           letter-spacing: 3px;
-          margin-top: -30px; /* Valor negativo lo sube */
+          margin-top: -30px;
           position: relative;
           z-index: 2;
         "
@@ -706,27 +696,22 @@
     </div>
   </div>
 
-  <!-- Botones sociales (ACTUALIZADOS: solo Telegram e Instagram con logos) -->
+  <!-- Botones sociales -->
   <div class="social-buttons">
-    <!-- Botón de Telegram con logo y enlace actualizado -->
     <div class="social-btn">
       <a href="https://t.me/Morat10" target="_blank">
-        <!-- Logo de Telegram (SVG) -->
         <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
           <path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4.1 20.8 2.7 17.2 19.5z"/>
         </svg>
       </a>
     </div>
-    <!-- Botón de Instagram con logo y enlace actualizado -->
     <div class="social-btn">
       <a href="https://www.instagram.com/ja_morat10?igsh=MWowaGo0emRoZmpoMg==" target="_blank">
-        <!-- Logo de Instagram (SVG) -->
         <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
           <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
         </svg>
       </a>
     </div>
-    <!-- Botón de YouTube ELIMINADO -->
   </div>
 
   <!-- Sección "El artista" -->
@@ -746,15 +731,13 @@
     <div class="linea-titulo"></div>
   </div>
 
-  <!-- Contenedor de canciones: cuadrícula + mensaje vacío -->
+  <!-- Contenedor de canciones -->
   <div class="canciones-wrapper">
-    <!-- Mensaje para cuando no hay canciones -->
     <div id="empty-message" class="empty-message">
       🎵 Aún no hay canciones<br>
       <span>Agrega tu primera canción desde el panel de administración</span>
     </div>
     
-    <!-- Tarjetas de canciones en cuadrícula -->
     <div class="canciones-grid" id="canciones-grid"></div>
   </div>
 
@@ -869,9 +852,23 @@
     <button onclick="checkPass()">Entrar</button>
   </div>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAhp1BLrS-Wc-3vhgU40S1JdaANLjfePAA",
+      authDomain: "ja-morat-web-213d8.firebaseapp.com",
+      projectId: "ja-morat-web-213d8",
+      storageBucket: "ja-morat-web-213d8.firebasestorage.app",
+      messagingSenderId: "428246678416",
+      appId: "1:428246678416:web:3c5165b738e8686a011115"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
     const ADMIN_PASS = "ja_morat1978";
     let editandoId = null;
 
@@ -885,14 +882,13 @@
 
       cargarCanciones();
 
-      // INICIALIZACIÓN CORREGIDA - ANIMACIÓN SOLO DE ENTRADA
       AOS.init({
-        duration: 1000,      // Duración de la animación
-        once: true,          // <-- CLAVE: Solo anima UNA VEZ (solo al entrar)
-        offset: 100,         // Distancia para activar
-        mirror: false,       // <-- IMPORTANTE: No animar al hacer scroll up
-        easing: 'ease-out',  // Suavizado
-        anchorPlacement: 'top-bottom', // Cuándo se activa
+        duration: 1000,
+        once: true,
+        offset: 100,
+        mirror: false,
+        easing: 'ease-out',
+        anchorPlacement: 'top-bottom',
       });
     });
 
@@ -971,57 +967,45 @@
       }
 
       const reader = new FileReader();
-      reader.onload = function (e) {
-        const nuevaTarjeta = {
-          id: Date.now(),
+      reader.onload = async function (e) {
+        const nuevaCancion = {
           titulo: titulo,
           desc: desc,
           imagen: e.target.result,
           boton: tieneBoton
             ? {
                 texto:
-                  document.getElementById("nuevo-boton-texto").value ||
-                  "Escuchar",
+                  document.getElementById("nuevo-boton-texto").value || "Escuchar",
                 enlace:
                   document.getElementById("nuevo-boton-enlace").value || "#",
               }
             : null,
+          fecha: Date.now()
         };
 
-        let canciones = JSON.parse(localStorage.getItem("canciones")) || [];
-        canciones.push(nuevaTarjeta);
-        localStorage.setItem("canciones", JSON.stringify(canciones));
-
+        await db.collection("canciones").add(nuevaCancion);
         location.reload();
       };
 
       reader.readAsDataURL(imagenInput.files[0]);
     }
 
-    function cargarCanciones() {
+    async function cargarCanciones() {
       const container = document.getElementById("canciones-grid");
       const emptyMessage = document.getElementById("empty-message");
+
       container.innerHTML = "";
 
-      let canciones = JSON.parse(localStorage.getItem("canciones"));
+      const snapshot = await db.collection("canciones").orderBy("fecha").get();
 
-      // Eliminamos las canciones predeterminadas
-      if (!canciones) {
-        canciones = []; // Inicializar como array vacío si no existe
-        localStorage.setItem("canciones", JSON.stringify(canciones));
-      }
-
-      if (canciones.length === 0) {
-        // Mostrar mensaje vacío y ocultar grid
+      if (snapshot.empty) {
         emptyMessage.classList.remove("hidden");
       } else {
-        // Ocultar mensaje vacío
         emptyMessage.classList.add("hidden");
-        
-        // Ordenar y agregar canciones
-        canciones
-          .sort((a, b) => a.id - b.id)
-          .forEach((c) => agregarTarjetaDOM(c));
+
+        snapshot.forEach((doc) => {
+          agregarTarjetaDOM(doc.data());
+        });
       }
     }
 
@@ -1035,7 +1019,6 @@
         ? `<a href="${c.boton.enlace}" target="_blank">${c.boton.texto}</a>`
         : "";
 
-      // MODIFICADO: Envolver la imagen en un contenedor con la clase para el degradado
       tarjeta.innerHTML = `
         <div class="imagen-con-degradado"><img src="${c.imagen}" alt="${c.titulo}"></div>
         <div class="cancion-info-cuadrada">
@@ -1048,95 +1031,94 @@
       AOS.refresh();
     }
 
-    function cargarListaEdicion() {
+    // === FUNCIONES ACTUALIZADAS PARA FIREBASE ===
+    
+    async function cargarListaEdicion() {
       const lista = document.getElementById("lista-editar");
-      const canciones = JSON.parse(localStorage.getItem("canciones")) || [];
+      lista.innerHTML = "";
 
-      lista.innerHTML = canciones.length
-        ? ""
-        : '<p style="color:#666; text-align:center;">No hay canciones</p>';
+      const snapshot = await db.collection("canciones").orderBy("fecha").get();
 
-      canciones
-        .sort((a, b) => a.id - b.id)
-        .forEach((c) => {
-          const item = document.createElement("div");
-          item.className = "item-editable";
-          item.innerHTML = `
-          <div><strong style="color:white;">${c.titulo}</strong><br><small style="color:#999;">${c.desc.substring(0, 30)}...</small></div>
+      if (snapshot.empty) {
+        lista.innerHTML = '<p style="color:#666; text-align:center;">No hay canciones</p>';
+        return;
+      }
+
+      snapshot.forEach((doc) => {
+        const c = doc.data();
+
+        const item = document.createElement("div");
+        item.className = "item-editable";
+
+        item.innerHTML = `
           <div>
-            <button class="editar-btn" onclick="editarCancion(${c.id})">✏️</button>
-            <button class="eliminar-btn" onclick="eliminarCancion(${c.id})">🗑️</button>
+            <strong style="color:white;">${c.titulo}</strong><br>
+            <small style="color:#999;">${c.desc.substring(0, 30)}...</small>
+          </div>
+          <div>
+            <button onclick="editarCancion('${doc.id}')">✏️</button>
+            <button onclick="eliminarCancion('${doc.id}')">🗑️</button>
           </div>
         `;
-          lista.appendChild(item);
-        });
+
+        lista.appendChild(item);
+      });
     }
 
-    function editarCancion(id) {
-      const c = JSON.parse(localStorage.getItem("canciones")).find(
-        (c) => c.id === id,
-      );
-      if (!c) return;
+    async function editarCancion(id) {
+      const doc = await db.collection("canciones").doc(id).get();
+      const c = doc.data();
 
       editandoId = id;
+
       document.getElementById("editor-seleccionado").style.display = "block";
       document.getElementById("editar-titulo").value = c.titulo;
       document.getElementById("editar-desc").value = c.desc;
+
       document.getElementById("editar-boton").checked = !!c.boton;
-      document.getElementById("boton-config-editar").style.display = c.boton
-        ? "block"
-        : "none";
+      document.getElementById("boton-config-editar").style.display = c.boton ? "block" : "none";
+
       if (c.boton) {
         document.getElementById("editar-boton-texto").value = c.boton.texto;
         document.getElementById("editar-boton-enlace").value = c.boton.enlace;
       }
     }
 
-    function guardarEdicion() {
+    async function guardarEdicion() {
       if (!editandoId) return;
 
-      let canciones = JSON.parse(localStorage.getItem("canciones"));
-      const index = canciones.findIndex((c) => c.id === editandoId);
-      if (index === -1) return;
+      const docRef = db.collection("canciones").doc(editandoId);
+      const imagenInput = document.getElementById("editar-imagen");
 
-      const imgInput = document.getElementById("editar-imagen");
+      const nuevaData = {
+        titulo: document.getElementById("editar-titulo").value,
+        desc: document.getElementById("editar-desc").value,
+        boton: document.getElementById("editar-boton").checked
+          ? {
+              texto: document.getElementById("editar-boton-texto").value || "Escuchar",
+              enlace: document.getElementById("editar-boton-enlace").value || "#",
+            }
+          : null,
+      };
 
-      if (imgInput.files[0]) {
+      if (imagenInput.files[0]) {
         const reader = new FileReader();
-        reader.onload = (e) => actualizar(e.target.result);
-        reader.readAsDataURL(imgInput.files[0]);
-      } else {
-        actualizar(canciones[index].imagen);
-      }
-
-      function actualizar(imagen) {
-        canciones[index] = {
-          ...canciones[index],
-          titulo: document.getElementById("editar-titulo").value,
-          desc: document.getElementById("editar-desc").value,
-          imagen: imagen,
-          boton: document.getElementById("editar-boton").checked
-            ? {
-                texto:
-                  document.getElementById("editar-boton-texto").value ||
-                  "Escuchar",
-                enlace:
-                  document.getElementById("editar-boton-enlace").value || "#",
-              }
-            : null,
+        reader.onload = async function(e) {
+          nuevaData.imagen = e.target.result;
+          await docRef.update(nuevaData);
+          location.reload();
         };
-
-        localStorage.setItem("canciones", JSON.stringify(canciones));
+        reader.readAsDataURL(imagenInput.files[0]);
+      } else {
+        await docRef.update(nuevaData);
         location.reload();
       }
     }
 
-    function eliminarCancion(id) {
+    async function eliminarCancion(id) {
       if (!confirm("¿Eliminar?")) return;
-      let canciones = JSON.parse(localStorage.getItem("canciones")).filter(
-        (c) => c.id !== id,
-      );
-      localStorage.setItem("canciones", JSON.stringify(canciones));
+
+      await db.collection("canciones").doc(id).delete();
       location.reload();
     }
 
